@@ -2,14 +2,18 @@
   <v-app>
     <v-container fluid class="py-4 px-2 h-full bg-[#e8eaf9]">
       <!-- Header -->
-      <v-app-bar app flat color="transparent">
+      <v-app-bar app flat color="transparent" class="px-4">
         <v-btn
           :icon="BackArrowIcon"
           @click="toggleView"
           density="compact"
+          rounded="lg"
+          style="background-color: rgba(23, 82, 101, 0.05)"
         ></v-btn>
         <!-- <v-toolbar-title class="ml-2">{{ showSidebar ? 'DM Settings' : 'Messages' }}</v-toolbar-title> -->
-        <v-toolbar-title class="ml-2">{{ "Messages" }}</v-toolbar-title>
+        <v-toolbar-title class="ml-2 text-[16px] font-bold">{{
+          "Messages"
+        }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-avatar size="40" class="shadow-md">
           <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
@@ -30,12 +34,14 @@
               <v-btn
                 :icon="CrossIcon"
                 density="compact"
-                color="transparent"
                 flat
+                rounded="lg"
+                variant="outlined"
+                color="#F4F7F8"
               ></v-btn>
             </v-card-title>
             <v-list>
-              <v-subheader class="text-gray-500 text-[10px] font-bold"
+              <v-subheader class="text-gray-500 text-[10px] font-bold pl-4"
                 >MANAGE INBOX</v-subheader
               >
               <v-list-item
@@ -51,18 +57,31 @@
                     class="mr-4"
                   ></v-icon>
                 </template>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title class="!text-[14px] !font-bold">{{
+                  item.title
+                }}</v-list-item-title>
               </v-list-item>
             </v-list>
-            <v-subheader class="text-gray-500 text-[10px] font-bold !pr-3"
+            <v-subheader class="text-gray-500 text-[10px] font-bold pl-4 !pr-3"
               >ADVANCED MESSAGES</v-subheader
             >
             <v-list>
-              <v-list-item v-for="(item, index) in otherItems" :key="index">
+              <v-list-item
+                v-for="(item, index) in otherItems"
+                :key="index"
+                class="opacity-50 pointer-events-none"
+              >
                 <template v-slot:prepend>
                   <v-icon :icon="item.icon" class="mr-3"></v-icon>
                 </template>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>
+                  <span class="flex justify-between">
+                    <span class="!text-[14px] !font-bold">
+                      {{ item.title }}</span
+                    >
+                    <span class="!text-[10px] !font-600">Coming soon... </span>
+                  </span>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card>
