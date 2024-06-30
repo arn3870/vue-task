@@ -3,8 +3,13 @@
     <v-container fluid class="py-4 px-2 h-full bg-[#e8eaf9]">
       <!-- Header -->
       <v-app-bar app flat color="transparent">
-        <v-btn :icon="BackArrowIcon" @click="goBack" density="compact"></v-btn>
-        <v-toolbar-title class="ml-2">Messages</v-toolbar-title>
+        <v-btn
+          :icon="BackArrowIcon"
+          @click="toggleView"
+          density="compact"
+        ></v-btn>
+        <!-- <v-toolbar-title class="ml-2">{{ showSidebar ? 'DM Settings' : 'Messages' }}</v-toolbar-title> -->
+        <v-toolbar-title class="ml-2">{{ "Messages" }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-avatar size="40" class="shadow-md">
           <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
@@ -14,7 +19,7 @@
       <!-- Main Content -->
       <v-row no-gutters class="h-full pt-16">
         <!-- Sidebar -->
-        <v-col cols="12" sm="4" md="3" lg="3" class="h-full">
+        <v-col v-if="showSidebar" cols="12" sm="4" md="3" lg="3" class="h-full">
           <v-card
             class="m-2 h-full bg-white py-4 px-4 !rounded-tl-lg !rounded-tr-md !rounded-br-md !rounded-bl-lg"
           >
@@ -37,6 +42,7 @@
                 v-for="(item, index) in listItems"
                 :key="index"
                 :value="index"
+                @click="item.title === 'DM tour guide' ? toggleView() : null"
               >
                 <template v-slot:prepend>
                   <v-icon
@@ -63,11 +69,17 @@
         </v-col>
 
         <!-- Body -->
-        <v-col cols="12" sm="8" md="9" lg="9">
+        <v-col
+          v-if="!showSidebar || $vuetify.display.smAndUp"
+          cols="12"
+          sm="8"
+          md="9"
+          lg="9"
+        >
           <v-card
             class="m-2 h-full !bg-white/50 bg-opacity-50 !rounded-tl-md !rounded-tr-xl !rounded-br-xl !rounded-bl-md"
           >
-            <v-container class="!w-1/2">
+            <v-container class="!w-full lg:!w-1/2">
               <div class="d-flex align-center mb-4">
                 <v-icon color="primary" class="mr-2">mdi-rocket-launch</v-icon>
                 <span class="text-h6 font-weight-bold gradient-text"
@@ -89,7 +101,9 @@
                 <template v-slot:default="{ value }"> </template>
               </v-progress-linear>
 
-              <v-card class="mt-6 rounded-xl bg-white p-10">
+              <v-card
+                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 px-5"
+              >
                 <v-card class="mt-6 rounded-xl inbox_detail_card w-fit">
                   <v-card-text>
                     <div class="text-h6 mb-2">Inbox Name</div>
@@ -97,7 +111,7 @@
                       Viva Tech
                     </v-sheet>
                     <div class="text-body-1 mb-2">Inbox Colors</div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-5">
                       <v-icon
                         v-for="(color, index) in inboxColors"
                         :key="index"
@@ -109,6 +123,38 @@
                     </div>
                   </v-card-text>
                 </v-card>
+                <div>
+                  <div class="flex !justify-between w-full">
+                    <h4>Create more inbox</h4>
+                    <div>
+                      <v-icon :icon="checkedIcon"></v-icon>
+                      <span>500XP</span>
+                    </div>
+                  </div>
+                </div>
+                <p>Create more inbox, welcome your new contact by a message</p>
+              </v-card>
+              <v-card
+                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 px-5"
+              >
+                <v-card class="mt-6 rounded-xl w-full">
+                  <v-card-text class="pa-0">
+                    <video width="100%" controls>
+                      <source src="../assets/video.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </v-card-text>
+                </v-card>
+                <div>
+                  <div class="flex !justify-between w-full">
+                    <h4>Create more inbox</h4>
+                    <div>
+                      <v-icon :icon="checkedIcon"></v-icon>
+                      <span>500XP</span>
+                    </div>
+                  </div>
+                </div>
+                <p>Create more inbox, welcome your new contact by a message</p>
               </v-card>
             </v-container>
           </v-card>
@@ -120,17 +166,29 @@
 
 <script setup>
 import { ref } from "vue";
-import AdressBookIcon from "../assets/Icons/AdressBookIcon.vue";
-import BackArrowIcon from "../assets/Icons/BackArrowIcon.vue";
+import { useDisplay } from "vuetify";
+import AdressBookIcon from "@/assets/Icons/AdressBookIcon.vue";
+import BackArrowIcon from "@/assets/Icons/BackArrowIcon.vue";
 import BlurredDMIcon from "@/assets/Icons/BlurredDMIcon.vue";
-import BoostDMIcon from "../assets/Icons/BoostDMIcon.vue";
+import BoostDMIcon from "@/assets/Icons/BoostDMIcon.vue";
 import DiscussionRulesIcon from "@/assets/Icons/DiscussionRulesIcon.vue";
-import DMStepsIcon from "../assets/Icons/DMStepsIcon.vue";
-import InboxIcon from "../assets/Icons/InboxIcon.vue";
+import DMStepsIcon from "@/assets/Icons/DMStepsIcon.vue";
+import InboxIcon from "@/assets/Icons/InboxIcon.vue";
 import SparklingStarticon from "@/assets/Icons/SparklingStarticon.vue";
 import ZapierIcon from "@/assets/Icons/ZapierIcon.vue";
 import CrossIcon from "@/assets/Icons/CrossIcon.vue";
+import checkedIcon from "@/assets/Icons/checkedIcon.vue";
+
+const display = useDisplay();
+const showSidebar = ref(true);
 const selectedItem = ref(0);
+
+const toggleView = () => {
+  if (display.smAndDown.value) {
+    showSidebar.value = !showSidebar.value;
+  }
+};
+
 const listItems = [
   { title: "DM tour guide", icon: SparklingStarticon },
   { title: "Inbox", icon: InboxIcon },
@@ -138,13 +196,24 @@ const listItems = [
   { title: "Adress Book", icon: AdressBookIcon },
   { title: "Zapier", icon: ZapierIcon },
 ];
+
 const otherItems = [
   { title: "Boost DM", icon: BoostDMIcon },
   { title: "Blurred DM", icon: BlurredDMIcon },
 ];
+
 const progress = ref(30);
 const bufferValue = ref(30);
-const inboxColors = ["red", "blue", "green", "yellow", "purple"];
+const inboxColors = [
+  "#DB4CF4",
+  "#8057EC",
+  "#2864ED",
+  "#10BBE0",
+  "#EF3A00",
+  "#EFBB00",
+  "#93ADB2",
+];
+
 const goBack = () => {
   // Implement your back navigation logic here
   console.log("Going back");
