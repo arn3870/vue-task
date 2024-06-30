@@ -1,11 +1,9 @@
 <template>
-  <v-app theme="dark">
-    <v-container fluid class="pa-0 fill-height bg-grey-darken-4">
+  <v-app>
+    <v-container fluid class="p-4 fill-height container-bg">
       <!-- Header -->
       <v-app-bar app flat color="transparent">
-        <v-btn icon @click="goBack">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
+        <v-btn icon="mdi-arrow-left" @click="goBack" density="compact"></v-btn>
         <v-toolbar-title class="ml-2">Messages</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-avatar size="40" class="elevation-2">
@@ -16,37 +14,27 @@
       <!-- Main Content -->
       <v-row no-gutters class="fill-height pt-16">
         <!-- Sidebar -->
-        <v-col cols="12" sm="4" md="3" lg="2">
-          <v-card class="ma-2" color="grey-darken-3">
-            <v-card-title class="d-flex justify-space-between align-center">
+        <v-col cols="12" sm="4" md="3" lg="2" style="height: 100%">
+          <v-card class="ma-2" color="white" style="height: 100%">
+            <v-card-title class="d-flex justify-space-between align-center bg-soild-[#e8eaf9] text-[#e8eaf9]">
               DM Settings
-              <v-btn icon>
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
+              <v-btn icon="mdi-close" density="compact" color="transparent" flat></v-btn>
             </v-card-title>
             <v-list>
-              <v-list-item-group v-model="selectedItem" color="light-blue">
-                <v-list-item>
-                  <v-list-item-title>DM tour guide</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Item 1</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Item 2</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Item 3</v-list-item-title>
-                </v-list-item>
-              </v-list-item-group>
+              <v-list-item v-for="(item, index) in listItems" :key="index" :value="index">
+                <template v-slot:prepend>
+                  <v-icon :icon="item.icon" class="mr-3"></v-icon>
+                </template>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
             </v-list>
             <v-subheader class="text-grey">Other Items</v-subheader>
             <v-list>
-              <v-list-item>
-                <v-list-item-title>Other item 1</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Other item 2</v-list-item-title>
+              <v-list-item v-for="(item, index) in otherItems" :key="index">
+                <template v-slot:prepend>
+                  <v-icon :icon="item.icon" class="mr-3"></v-icon>
+                </template>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card>
@@ -54,10 +42,8 @@
 
         <!-- Body -->
         <v-col cols="12" sm="8" md="9" lg="10">
-          <v-card class="ma-2 fill-height" color="grey-darken-3">
-            <v-card-text>
-              This is the body of the component.
-            </v-card-text>
+          <v-card class="ma-2 fill-height" color="white" style="opacity: 0.5;">
+            <v-card-text>This is the body of the component.</v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -66,18 +52,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const selectedItem = ref(0);
+const listItems = [
+  { title: "DM tour guide", icon: "mdi-map-marker" },
+  { title: "Item 1", icon: "mdi-account" },
+  { title: "Item 2", icon: "mdi-heart" },
+  { title: "Item 3", icon: "mdi-star" },
+];
+const otherItems = [
+  { title: "Other item 1", icon: "mdi-folder" },
+  { title: "Other item 2", icon: "mdi-cog" },
+];
 
 const goBack = () => {
   // Implement your back navigation logic here
-  console.log('Going back');
+  console.log("Going back");
 };
 </script>
 
 <style scoped>
-.v-app-bar {
-  background-color: rgba(0, 0, 0, 0.5) !important;
+.container-bg {
+  background-color: #e8eaf9;
 }
 </style>
