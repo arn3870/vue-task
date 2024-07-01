@@ -100,12 +100,26 @@
           >
             <v-container class="!w-full lg:!w-1/2">
               <div class="d-flex align-center mb-4">
-                <v-icon color="primary" class="mr-2">mdi-rocket-launch</v-icon>
+                <v-icon
+                  color="primary"
+                  class="mr-2"
+                  :icon="SparklingStarticon"
+                ></v-icon>
                 <span class="text-h6 font-weight-bold gradient-text"
                   >Get Started</span
                 >
                 <v-spacer></v-spacer>
-                <span class="text-body-1">You earned 240 points</span>
+                <div class="flex flex-row text-start">
+                  <v-icon :icon="EarningsIcons" size="30px"></v-icon>
+                  <div class="flex flex-col text-start">
+                    <span class="text-[14px] font-bold gradient-text"
+                      >You earned 20 500</span
+                    >
+                    <span class="text-[10px] font-bold"
+                      >Total XP to earn : 12 000</span
+                    >
+                  </div>
+                </div>
               </div>
 
               <v-progress-linear
@@ -121,40 +135,72 @@
               </v-progress-linear>
 
               <v-card
-                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 px-5"
+                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 !px-[21px]"
               >
                 <v-card class="mt-6 rounded-xl inbox_detail_card w-fit">
                   <v-card-text>
                     <div class="text-h6 mb-2">Inbox Name</div>
                     <v-sheet color="white" class="pa-2 mb-4 !rounded-[10px]">
-                      Viva Tech
+                      VivaTech
                     </v-sheet>
                     <div class="text-body-1 mb-2">Inbox Colors</div>
                     <div class="flex gap-5">
-                      <v-icon
+                      <v-tooltip
                         v-for="(color, index) in inboxColors"
                         :key="index"
-                        :color="color"
-                        :icon="InboxIcon"
-                        class="mr-2"
+                        location="top"
                       >
-                      </v-icon>
+                        <template v-slot:activator="{ props }">
+                          <div class="icon-wrapper" v-bind="props">
+                            <v-icon
+                              :color="color"
+                              :icon="InboxIcon"
+                              class="mr-2 transition-transform duration-200 hover:scale-125"
+                            >
+                            </v-icon>
+                          </div>
+                        </template>
+                        <div class="tooltip-content">
+                          <div class="flex flex-col">
+                            <div>
+                              <v-chip
+                                :prepend-icon="InboxIcon"
+                                color="white"
+                                :style="{ backgroundColor: color }"
+                              >
+                                Vivatech
+                              </v-chip>
+                            </div>
+                            <span class="ml-2"
+                              >Hello
+                              <span class="font-bold"> {FirstName}</span> it was
+                              <br />pleasure to meet you</span
+                            >
+                          </div>
+                        </div>
+                      </v-tooltip>
                     </div>
                   </v-card-text>
                 </v-card>
-                <div>
-                  <div class="flex !justify-between w-full">
-                    <h4>Create more inbox</h4>
-                    <div>
-                      <v-icon :icon="checkedIcon"></v-icon>
-                      <span>500XP</span>
+                <div class="flex flex-col w-full">
+                  <div class="flex !justify-start">
+                    <div
+                      class="flex !justify-between w-full text-[16px] font-bold mt-6"
+                    >
+                      <h4>Create more inbox</h4>
+                      <div>
+                        <v-icon :icon="checkedIcon" width="150px"></v-icon>
+                        <span class="gradient-text">500xp</span>
+                      </div>
                     </div>
                   </div>
+                  <p class="text-[12px] font-medium !text-[#8C8D90]">
+                    Create more inbox, welcome your new contact by a message
+                  </p>
                 </div>
-                <p>Create more inbox, welcome your new contact by a message</p>
               </v-card>
               <v-card
-                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 px-5"
+                class="!flex !flex-col !justify-center !items-center mt-6 rounded-xl bg-white !py-10 !px-[21px]"
               >
                 <v-card class="mt-6 rounded-xl w-full">
                   <v-card-text class="pa-0">
@@ -164,16 +210,21 @@
                     </video>
                   </v-card-text>
                 </v-card>
-                <div>
-                  <div class="flex !justify-between w-full">
-                    <h4>Create more inbox</h4>
-                    <div>
-                      <v-icon :icon="checkedIcon"></v-icon>
-                      <span>500XP</span>
+                <div class="flex flex-col w-full">
+                  <div class="flex mt-6">
+                    <div
+                      class="flex !justify-between w-full text-[16px] font-bold"
+                    >
+                      <h4>Create more inbox</h4>
+                      <div>
+                        <span class="gradient-text">+ 500xp</span>
+                      </div>
                     </div>
                   </div>
+                  <p class="text-[12px] font-medium !text-[#8C8D90]">
+                    Create more inbox, welcome your new contact by a message
+                  </p>
                 </div>
-                <p>Create more inbox, welcome your new contact by a message</p>
               </v-card>
             </v-container>
           </v-card>
@@ -197,6 +248,7 @@ import SparklingStarticon from "@/assets/Icons/SparklingStarticon.vue";
 import ZapierIcon from "@/assets/Icons/ZapierIcon.vue";
 import CrossIcon from "@/assets/Icons/CrossIcon.vue";
 import checkedIcon from "@/assets/Icons/checkedIcon.vue";
+import EarningsIcons from "@/assets/Icons/EarningsIcons.vue";
 
 const display = useDisplay();
 const showSidebar = ref(true);
@@ -217,8 +269,8 @@ const listItems = [
 ];
 
 const otherItems = [
-  { title: "Boost DM", icon: BoostDMIcon },
-  { title: "Blurred DM", icon: BlurredDMIcon },
+  { title: "Boost DM®", icon: BoostDMIcon },
+  { title: "Blurred DM®", icon: BlurredDMIcon },
 ];
 
 const progress = ref(30);
@@ -275,5 +327,19 @@ const goBack = () => {
     #dbe5fe -0.19%,
     rgba(177, 197, 249, 0) 100.19%
   ) !important;
+}
+.icon-wrapper {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-content {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: rgba(97, 97, 97, 0.9);
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
 }
 </style>
