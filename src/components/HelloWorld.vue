@@ -149,6 +149,7 @@
                         v-for="(color, index) in inboxColors"
                         :key="index"
                         location="top"
+                        density="comfortable"
                       >
                         <template v-slot:activator="{ props }">
                           <div class="icon-wrapper" v-bind="props">
@@ -337,9 +338,16 @@ const goBack = () => {
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  background-color: rgba(97, 97, 97, 0.9);
   border-radius: 4px;
-  color: white;
+  color: black;
   font-size: 12px;
+  background: white !important;
+}
+.v-overlay__content {
+  background-color: white !important;
+  color: black;
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
 }
 </style>
