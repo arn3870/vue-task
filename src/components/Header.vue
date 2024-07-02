@@ -7,7 +7,9 @@
       rounded="lg"
       style="background-color: rgba(23, 82, 101, 0.05)"
     ></v-btn>
-    <v-toolbar-title class="ml-2 text-[16px] font-bold">{{ "Messages" }}</v-toolbar-title>
+    <v-toolbar-title class="ml-2 text-[16px] font-bold">{{
+      showSidebar ? "Messages" : "App Tour Guide"
+    }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-avatar size="40" class="shadow-md">
       <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
@@ -19,7 +21,8 @@
 import BackArrowIcon from "@/assets/Icons/BackArrowIcon.vue";
 
 const props = defineProps({
-  toggleView: Function
+  toggleView: Function,
+  showSidebar: Boolean,
 });
 </script>
 

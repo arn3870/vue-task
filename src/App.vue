@@ -1,21 +1,31 @@
 <template>
   <v-app>
     <v-container fluid class="py-4 px-2 h-full bg-[#e8eaf9]">
-      <Header :toggleView="toggleView" />
+      <Header :toggleView="toggleView" :showSidebar="showSidebar" />
       <v-row no-gutters class="h-full pt-16">
-        <Sidebar :showSidebar="showSidebar" :toggleView="toggleView" :listItems="listItems" :otherItems="otherItems" />
-        <MainContent :showSidebar="showSidebar" :progress="progress" :bufferValue="bufferValue" :inboxColors="inboxColors" />
+        <Sidebar
+          :showSidebar="showSidebar"
+          :toggleView="toggleView"
+          :listItems="listItems"
+          :otherItems="otherItems"
+        />
+        <MainContent
+          :showSidebar="showSidebar"
+          :progress="progress"
+          :bufferValue="bufferValue"
+          :inboxColors="inboxColors"
+        />
       </v-row>
     </v-container>
   </v-app>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useDisplay } from 'vuetify';
-import Header from './components/Header.vue';
-import Sidebar from './components/Sidebar.vue';
-import MainContent from './components/MainContent.vue';
+import { ref } from "vue";
+import { useDisplay } from "vuetify";
+import Header from "./components/Header.vue";
+import Sidebar from "./components/Sidebar.vue";
+import MainContent from "./components/MainContent.vue";
 
 import SparklingStarticon from "@/assets/Icons/SparklingStarticon.vue";
 import InboxIcon from "@/assets/Icons/InboxIcon.vue";
