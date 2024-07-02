@@ -3,5 +3,22 @@
 @tailwind utilities;
 
 body {
-    font-family: 'Manrope', sans-serif;
-  }
+  font-family: "Manrope", sans-serif;
+}
+.v-application__wrap {
+  height: 100dvh;
+  overflow: hidden;
+}
+.hidden-scrollbar {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+.gradient-text {
+  background: linear-gradient(
+    91.74deg,
+    #40bebe -20.8%,
+    #2361e6 101.14%
+  ) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
